@@ -1,6 +1,6 @@
 //25K-3084(Encoding/Decoding)
 #include <stdio.h>
-#include <string.h>
+#include <string.h>  //only using string.h to remove buffer line obtained by using fgets by using strcspn
 
 void reverseString(char str[]) {
     int i, j;
@@ -52,7 +52,7 @@ int main() {
         printf("3. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        getchar(); // clear newline
+        getchar(); 
 
         if (choice == 1) {
             printf("\nEnter message to ENCODE: ");
