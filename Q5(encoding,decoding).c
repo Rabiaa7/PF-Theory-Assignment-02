@@ -1,15 +1,11 @@
 //25K-3084(Encoding/Decoding)
 #include <stdio.h>
-#include <string.h>  //only using string.h to remove buffer line obtained by using fgets by using strcspn
 
 void reverseString(char str[]) {
     int i, j;
     char temp;
-
-
     for (i = 0; str[i] != '\0'; i++);
     j = i - 1;
-
     for (i = 0; i < j; i++, j--) {
         temp = str[i];
         str[i] = str[j];
@@ -18,12 +14,13 @@ void reverseString(char str[]) {
 }
 
 void toggleBits(char *ch) {
-    *ch = *ch ^ (1 << 1);
-    *ch = *ch ^ (1 << 4);
+    *ch = *ch ^ (1 << 1);  
+    *ch = *ch ^ (1 << 4);  
 }
 
 void encodeMessage(char message[]) {
     int i;
+
     reverseString(message);
 
     for (i = 0; message[i] != '\0'; i++) {
@@ -35,10 +32,10 @@ void decodeMessage(char message[]) {
     int i;
 
     for (i = 0; message[i] != '\0'; i++) {
-        toggleBits(&message[i]);
+        toggleBits(&message[i]);    
     }
 
-    reverseString(message);
+    reverseString(message);         
 }
 
 int main() {
@@ -53,13 +50,16 @@ int main() {
         printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar(); 
-
         if (choice == 1) {
             printf("\nEnter message to ENCODE: ");
             fgets(message, sizeof(message), stdin);
 
-            // remove newline using strcspn
-            message[strcspn(message, "\n")] = '\0';
+            
+            int i;
+            for (i = 0; message[i] != '\0'; i++);
+            if (message[i - 1] == '\n') {
+                message[i - 1] = '\0';
+            }
 
             encodeMessage(message);
             printf("\nEncoded Message: %s\n", message);
@@ -68,8 +68,11 @@ int main() {
             printf("\nEnter message to DECODE: ");
             fgets(message, sizeof(message), stdin);
 
-            // remove newline using strcspn
-            message[strcspn(message, "\n")] = '\0';
+            int i;
+            for (i = 0; message[i] != '\0'; i++);
+            if (message[i - 1] == '\n') {
+                message[i - 1] = '\0';
+            }
 
             decodeMessage(message);
             printf("\nDecoded Message: %s\n", message);
@@ -85,4 +88,5 @@ int main() {
 
     return 0;
 }
+
 
